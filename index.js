@@ -196,6 +196,9 @@ module.exports   = function(S) {
               MemorySize:   _this.functionPopulated.memorySize,
               Publish:      true, // Required by Serverless Framework & recommended best practice by AWS
               Timeout:      _this.functionPopulated.timeout,
+              TracingConfig: {
+                Mode: _this.functionPopulated.tracingConfig && _this.functionPopulated.tracingConfig.mode ? _this.functionPopulated.tracingConfig.mode : 'PassThrough',
+              },
               VpcConfig: {
                 SecurityGroupIds: _this.functionPopulated.vpc ? _this.functionPopulated.vpc.securityGroupIds : [],
                 SubnetIds:  _this.functionPopulated.vpc ? _this.functionPopulated.vpc.subnetIds : []
@@ -223,6 +226,9 @@ module.exports   = function(S) {
               Role:         _this.functionPopulated.customRole ? _this.functionPopulated.customRole : _this.project.getVariablesObject(_this.evt.options.stage, _this.evt.options.region).iamRoleArnLambda,
               Runtime:      _this.function.getRuntime().getName('aws'), /* required */
               Timeout:      _this.functionPopulated.timeout,
+              TracingConfig: {
+                Mode: _this.functionPopulated.tracingConfig && _this.functionPopulated.tracingConfig.mode ? _this.functionPopulated.tracingConfig.mode : 'PassThrough',
+              },
               VpcConfig: {
                 SecurityGroupIds: _this.functionPopulated.vpc ? _this.functionPopulated.vpc.securityGroupIds : [],
                 SubnetIds: _this.functionPopulated.vpc ? _this.functionPopulated.vpc.subnetIds : []
