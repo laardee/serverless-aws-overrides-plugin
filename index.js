@@ -13,7 +13,8 @@ module.exports   = function(S) {
     BbPromise    = require('bluebird'),
     Zip          = require('node-zip'),
     fs           = require('fs'),
-    fse          = require('fs-extra');
+    fse          = require('fs-extra'),
+    pathSepRe    = new RegExp(`\\${ path.sep }`, 'g');
 
   class ServerlessAWSOverrides extends S.classes.Plugin {
 
@@ -120,7 +121,7 @@ module.exports   = function(S) {
 
               // Exclude certain files
               if (name.indexOf('DS_Store') == -1) {
-                zip.file(name, fs.readFileSync(item.path), {
+                zip.file(name.replace(pathSepRe, "/"), fs.readFileSync(item.path), {
                   unixPermissions: permissions
                 });
               }
